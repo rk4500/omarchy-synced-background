@@ -1,18 +1,18 @@
-# archer.background
+# Archer Background
 
-A modified copy of Omarchy's built-in `omarchy.background` (MIT). It renders the wallpaper exactly as the stock plugin does, with one addition: when the wallpaper-change animation starts, it tells [archer.whimsy](https://github.com/rk4500/whimsy) so desktop widgets can change layout in step with it.
+A modified copy of Omarchy's built-in `omarchy.background` (MIT). It renders the wallpaper exactly as the stock plugin does, with one addition: when the wallpaper-change animation starts, it tells [io.github.rk4500.archer-whimsy](https://github.com/rk4500/whimsy) so desktop widgets can change layout in step with it.
 
 ## Why
 
-`archer.whimsy` keeps a separate widget layout per wallpaper. When the wallpaper changes, the widgets for the new one wipe in with the same slanted reveal the wallpaper uses. Whimsy can't read the background plugin's animation state, so it needs to be told when the reveal begins. The reveal only starts once the new image has decoded, which is a few hundred milliseconds after the change is requested. Without the signal the widgets move visibly early.
+`io.github.rk4500.archer-whimsy` keeps a separate widget layout per wallpaper. When the wallpaper changes, the widgets for the new one wipe in with the same slanted reveal the wallpaper uses. Whimsy can't read the background plugin's animation state, so it needs to be told when the reveal begins. The reveal only starts once the new image has decoded, which is a few hundred milliseconds after the change is requested. Without the signal the widgets move visibly early.
 
 ## It's optional on both sides
 
-- **Without `archer.whimsy`:** the hook file is loaded lazily and a missing file is handled, so this plugin behaves exactly like the stock one. Checked by loading a nonexistent component, which reports an error status and carries on.
-- **Without `archer.background`** (stock `omarchy.background` instead): whimsy sees that no background plugin has announced itself and swaps layouts immediately, running its own wipe a little ahead of the wallpaper's. Checked with the stock plugin enabled.
+- **Without `io.github.rk4500.archer-whimsy`:** the hook file is loaded lazily and a missing file is handled, so this plugin behaves exactly like the stock one. Checked by loading a nonexistent component, which reports an error status and carries on.
+- **Without `io.github.rk4500.archer-background`** (stock `omarchy.background` instead): whimsy sees that no background plugin has announced itself and swaps layouts immediately, running its own wipe a little ahead of the wallpaper's. Checked with the stock plugin enabled.
 - **With both:** whimsy waits for the reveal-start signal (with a 1.2 s fallback for wallpaper changes that don't animate) so the two edges line up.
 
-The only coupling is a relative path: this plugin looks for `../archer.whimsy/WallpaperHook.qml`, so whimsy has to be installed in the same plugins directory under that id.
+The only coupling is a relative path: this plugin looks for `../io.github.rk4500.archer-whimsy/WallpaperHook.qml`, so whimsy has to be installed in the same plugins directory under that id.
 
 ## Install
 
@@ -24,7 +24,7 @@ omarchy restart shell
 Enabling it replaces the stock background plugin. To go back:
 
 ```bash
-omarchy plugin remove archer.background
+omarchy plugin remove io.github.rk4500.archer-background
 omarchy plugin enable omarchy.background
 ```
 
