@@ -6,7 +6,6 @@ import QtQuick.Effects
 import QtQuick.Shapes
 import qs.Commons
 import qs.Ui
-import "../archer.whimsy/Registry.js" as Whimsy
 
 Item {
   id: root
@@ -15,6 +14,7 @@ Item {
   readonly property string stateHome: home + "/.local/state"
   readonly property string currentBackgroundLink: stateHome + "/omarchy/current/background"
 
+  property var whimsyHook: null
   property string currentBackground: ""
   property string displayedBackground: ""
   property string incomingBackground: ""
@@ -99,11 +99,13 @@ Item {
     revealStartedVersion = backgroundVersion
     applyPendingTheme()
     revealAnimation.restart()
-    // Tell whimsy the wipe just started so its widget layout swap lines up.
-    try {
-      var whimsy = Whimsy.get()
-      if (whimsy && whimsy.wallpaperRevealStarted) whimsy.wallpaperRevealStarted()
-    } catch (e) {}
+    // Tell archer.whimsy (if installed alongside) that the wipe just started
+    // so its widget layout swap lines up. Loaded lazily: absent, it's a no-op.
+    if (!whimsyHook) {
+      var comp = Qt.createComponent(Qt.resolvedUrl("../archer.whimsy/WallpaperHook.qml"))
+      if (comp.status === Component.Ready) whimsyHook = comp.createObject(root)
+    }
+    if (whimsyHook) whimsyHook.notify()
   }
 
   function openSelector() {
