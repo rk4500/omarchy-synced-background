@@ -103,13 +103,13 @@ Item {
     if (hook) hook.notify()
   }
 
-  // Optional integration: io.github.rk4500.archer-whimsy, if installed alongside, is told when
+  // Optional integration: io.github.rk4500.whimsy-layouts, if installed alongside, is told when
   // the wipe starts so its widget layout swap lines up with it. The hook is
   // loaded lazily, so with whimsy absent this is a no-op and nothing else is
   // affected.
   function ensureWhimsyHook() {
     if (!whimsyHook) {
-      var comp = Qt.createComponent(Qt.resolvedUrl("../io.github.rk4500.archer-whimsy/WallpaperHook.qml"))
+      var comp = Qt.createComponent(Qt.resolvedUrl("../io.github.rk4500.whimsy-layouts/WallpaperHook.qml"))
       if (comp.status === Component.Ready) whimsyHook = comp.createObject(root)
     }
     return whimsyHook

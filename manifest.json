@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "io.github.rk4500.archer-background",
-  "name": "Archer Background",
+  "id": "io.github.rk4500.synced-background",
+  "name": "Synced Background",
   "version": "1.0.0",
-  "author": "Omarchy",
+  "author": "rk4500 (fork of Omarchy)",
   "description": "Desktop background renderer with click handling and transitions",
   "kinds": [
     "service"
@@ -13,5 +13,6 @@
   },
   "omarchy": {
     "clonedFrom": "omarchy.background"
-  }
+  },
+  "homepage": "https://github.com/rk4500/omarchy-synced-background"
 }
