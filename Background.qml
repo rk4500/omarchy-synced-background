@@ -99,13 +99,20 @@ Item {
     revealStartedVersion = backgroundVersion
     applyPendingTheme()
     revealAnimation.restart()
-    // Tell archer.whimsy (if installed alongside) that the wipe just started
-    // so its widget layout swap lines up. Loaded lazily: absent, it's a no-op.
+    var hook = ensureWhimsyHook()
+    if (hook) hook.notify()
+  }
+
+  // Optional integration: archer.whimsy, if installed alongside, is told when
+  // the wipe starts so its widget layout swap lines up with it. The hook is
+  // loaded lazily, so with whimsy absent this is a no-op and nothing else is
+  // affected.
+  function ensureWhimsyHook() {
     if (!whimsyHook) {
       var comp = Qt.createComponent(Qt.resolvedUrl("../archer.whimsy/WallpaperHook.qml"))
       if (comp.status === Component.Ready) whimsyHook = comp.createObject(root)
     }
-    if (whimsyHook) whimsyHook.notify()
+    return whimsyHook
   }
 
   function openSelector() {
@@ -184,7 +191,11 @@ Item {
     }
   }
 
-  Component.onCompleted: refreshBackground()
+  Component.onCompleted: {
+    refreshBackground()
+    var hook = ensureWhimsyHook()
+    if (hook) hook.announce()
+  }
 
   Variants {
     model: Quickshell.screens
