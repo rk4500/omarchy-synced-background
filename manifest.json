@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "archer.background",
-  "name": "My Background",
+  "id": "io.github.rk4500.archer-background",
+  "name": "Archer Background",
   "version": "1.0.0",
   "author": "Omarchy",
   "description": "Desktop background renderer with click handling and transitions",
